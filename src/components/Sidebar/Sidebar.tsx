@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, HStack, Icon, Show, Text, useColorMode, VStack } from "@chakra-ui/react";
 import { MdMenu } from "react-icons/md";
 import { FiPlus, FiMessageSquare } from "react-icons/fi";

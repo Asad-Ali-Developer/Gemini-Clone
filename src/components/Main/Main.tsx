@@ -152,7 +152,7 @@ const Main = () => {
                     // maxW='30vw'
                     maxHeight={{ md: '55vh', lg: '64vh', base: '60vh' }}
                     overflowY="scroll"
-                    className="result-text"
+                    className="result-text" textIndent={2}
                     fontSize={{ md: 16, lg: 18, base: 14 }}>
                     {/* <ReactMarkdown>{resultData}</ReactMarkdown> */}
                     <Typewriter

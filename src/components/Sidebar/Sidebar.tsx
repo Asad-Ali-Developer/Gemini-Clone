@@ -55,9 +55,9 @@ const Sidebar = () => {
           height="100vh"
           width={{
             base: "5vw", // Default for small screens
-            md: isCollapsed ? "3vw" : "18vw",
-            lg: isCollapsed ? "5vw" : "18vw",
-            xl: isCollapsed ? "4vw" : "18vw",
+            md: isCollapsed ? "3vw" : "28vw",
+            lg: isCollapsed ? "5vw" : "25vw",
+            xl: isCollapsed ? "4vw" : "20vw",
           }}
           px={isCollapsed ? 3 : 5}
           py={5}

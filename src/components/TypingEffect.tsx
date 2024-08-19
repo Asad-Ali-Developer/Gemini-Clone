@@ -1,25 +1,11 @@
 import React, { useState, ReactNode } from 'react';
-import Context, { ContextType } from './Context';
+import Context, { ContextType } from '../context/Context';
 import { run } from '../config/gemini-api';
-import MarkdownIt from 'markdown-it';
 import DOMPurify from 'dompurify';
 
 interface ProviderProps {
     children: ReactNode;
 }
-
-const md = new MarkdownIt({
-    html: true,  // Enable HTML tags
-    linkify: true,  // Automatically convert URLs into links
-    typographer: true  // Enable some typographic replacements
-});
-
-const sanitizeHtml = (html: string): string => {
-    return DOMPurify.sanitize(html, {
-        ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a'],  // Customize as needed
-        ALLOWED_ATTR: ['href']  // Customize as needed
-    });
-};
 
 const ContextProvider: React.FC<ProviderProps> = ({ children }) => {
     const [input, setInput] = useState<string>('');
@@ -29,11 +15,14 @@ const ContextProvider: React.FC<ProviderProps> = ({ children }) => {
     const [resultData, setResultData] = useState<string | null>(null);
     const [previousPrompt, setPreviousPrompt] = useState<string[]>([]);
 
+    // Format the result using HTML and sanitize it
     const formatResult = (result: string): string => {
-        // Convert Markdown to HTML
-        const html = md.render(result);
-        // Sanitize HTML
-        return sanitizeHtml(html);
+        const resultArray = result.split("**");
+        return resultArray.map((segment, index) => 
+            index % 2 === 0
+                ? `<b>${segment}</b>`
+                : `<p>${segment}</p>`
+        ).join('');
     };
 
     const onSent = async (prompt: string) => {
@@ -45,7 +34,9 @@ const ContextProvider: React.FC<ProviderProps> = ({ children }) => {
             console.log("Result received:", result);
 
             if (result) {
-                setResultData(formatResult(result));
+                // Sanitize the result before setting it
+                const sanitizedResult = DOMPurify.sanitize(formatResult(result));
+                setResultData(sanitizedResult);
                 setShowResults(true);
                 setRecentPrompt(prompt);
                 setInput('');

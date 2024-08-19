@@ -13,7 +13,7 @@ import Context from "../../context/Context";
 import { FaUserCircle } from "react-icons/fa";
 import Gemini from '../../assets/images/gemini.png';
 import { Typewriter } from "react-simple-typewriter";
-import ReactMarkdown from "react-markdown";
+
 
 const Main = () => {
   const { colorMode } = useColorMode();
